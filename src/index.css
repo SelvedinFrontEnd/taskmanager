@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --color-accent: #10B981; 
+    --color-primary: #d1f8dd;
+    --color-primary-dark: #0E0E0E;
+    --shadow-right: 6px 0 8px rgba(16, 185, 129, 0.4);
+    --shadow-rightdark: 6px 0 8px rgba(0, 0, 0, 0.4);
+}
+
+
+html, body {
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
