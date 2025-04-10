@@ -1,12 +1,24 @@
-# React + Vite
+TaskManager App (In Progress)
+A task management application currently under development. This app is built using React, Tailwind CSS, and Firebase. It will allow users to log in, create and manage tasks, track progress, and more!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Features (Planned)
+User Authentication: Users will be able to securely log in using Firebase Authentication.
 
-Currently, two official plugins are available:
+Create Tasks: Users will have the ability to create tasks with details like name, description, and due date.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Task Management: Tasks will be organized into different categories like All Tasks, In Progress, Urgent, and Completed.
 
-## Expanding the ESLint configuration
+Dashboard: A dashboard will show users the status of their tasks and provide useful statistics.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Search Functionality: Users will be able to search for tasks quickly.
+
+Profile Management: Users will be able to edit their profiles and manage their settings.
+
+Technologies Used
+React: For building the user interface and managing state.
+
+Tailwind CSS: For styling the app with a utility-first CSS framework.
+
+Firebase: For backend services including authentication, real-time database, and cloud storage.
+
+React Router: For navigating between pages like Dashboard, Tasks, and Profile.
