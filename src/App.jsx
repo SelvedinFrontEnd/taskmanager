@@ -6,6 +6,8 @@ import Dashboard from './Pages/Dashboard/Dashboard';
 import Tasks from './Pages/Tasks/Tasks';
 import Completed from './Pages/Completed/Completed';
 import Profile from './Pages/ProfilePage/Profile';
+import Upcoming from './Components/Dashboard/Upcoming';
+import Urgent from './Pages/UrgentPage/Urgent';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -42,6 +44,8 @@ function App() {
             <Route path='/tasks' element={<Tasks />} />
             <Route path='/completed-tasks' element={<Completed />} />
             <Route path='/profile' element={<Profile />} />
+            <Route path='/upcoming' element={<Upcoming />} />
+            <Route path='/urgent' element={<Urgent />} />
           </Routes>
         </main>
       </div>
