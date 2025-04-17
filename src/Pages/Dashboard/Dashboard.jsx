@@ -6,6 +6,7 @@ import AddTasks from '../../Components/Dashboard/AddTasks';
 import Notifications from '../../Components/Dashboard/Notifications';
 import Upcoming from '../../Components/Dashboard/Upcoming';
 import ActivityFeed from '../../Components/Dashboard/ActivityFeed';
+import Calendar from '../../Components/Dashboard/Calendar';
 
 function Dashboard() {
   return (
@@ -44,7 +45,7 @@ function Dashboard() {
           icon={<CheckCircle size={28} />}
         />
       </div>
-
+      <Calendar />
     </>
   );
 }

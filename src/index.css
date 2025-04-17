@@ -14,3 +14,26 @@
 html, body {
     transition: background-color 0.5s ease, color 0.5s ease;
   }
+
+  
+  .sx-react-calendar-wrapper {
+    margin: 2rem auto 0 auto; 
+    width: 98%;
+    max-width: 100vw;
+    height: 800px;
+    max-height: 90vh;
+}
+
+:root {
+    --sx-color-primary: #007bff; /* New primary color */
+    --sx-color-on-primary: #fff; /* Text color for primary */
+    --sx-color-primary-container: #b3d1ff; /* Container color */
+    --sx-color-on-primary-container: #004080; /* Text color for primary container */
+    
+    --sx-color-background: red; /* Change background color */
+    --sx-color-on-background: red; /* Text color on background */
+    
+    /* You can also adjust other color properties */
+    --sx-color-surface: #fff; /* Surface background color */
+    --sx-color-surface-container: #f0f0f0; /* Container background */
+  }
