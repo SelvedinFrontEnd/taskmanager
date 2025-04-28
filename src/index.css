@@ -1,0 +1,213 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --color-accent: #10B981; 
+    --color-primary: #d1f8dd;
+    --color-primary-dark: #0E0E0E;
+    --shadow-right: 6px 0 8px rgba(16, 185, 129, 0.4);
+    --shadow-rightdark: 6px 0 8px rgba(0, 0, 0, 0.4);
+    --color-primary-darker: #b4ebc8;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('Fonts/Roboto-VariableFont_wdth\,wght.ttf') format('truetype');
+  font-style: normal; 
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('Fonts/Lato-Regular.ttf') format('truetype');
+  font-style: normal; 
+}
+
+html, body {
+    transition: background-color 0.5s ease, color 0.5s ease;
+    font-family: "Lato";
+  }
+
+  
+  .sx-react-calendar-wrapper {
+    margin: 2rem auto 0 auto; 
+    width: 98%;
+    max-width: 100vw;
+    height: 800px;
+    max-height: 90vh;
+}
+
+li {
+  list-style-type: none;
+  position: relative;
+}
+
+.circle {
+  position: absolute;
+  top: 50%;
+  left: -20px; 
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background-color: green;
+  border-radius: 50%;
+  transition: width 0.3s ease, background-color 0.3s ease, border-radius 0.3s ease;
+}
+
+a {
+  position: relative;
+  z-index: 1; 
+}
+
+.circle.active {
+  width: 100%;
+  height: 20px; 
+  background-color: green; 
+  border-radius: 0.5rem; 
+}
+
+
+.primaryBtn {
+  margin: 20px 10px;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 13px 25px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  border: none;
+  color: white;
+  background: #185adb;
+  transition: all 0.25s ease;
+}
+
+.primaryBtn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px -10px rgba(24, 90, 219, 0.6);
+}
+
+.darkBG {
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal {
+  width: 250px;
+  height: 170px;
+  background: white;
+  color: white;
+  z-index: 10;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+}
+
+.modalHeader {
+  height: 50px;
+  background: white;
+  overflow: hidden;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.heading {
+  margin: 0;
+  padding: 10px;
+  color: #2c3e50;
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+}
+
+.modalContent {
+  padding: 10px;
+  font-size: 14px;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.modalActions {
+  position: absolute;
+  bottom: 2px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.actionsContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.closeBtn {
+  cursor: pointer;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: none;
+  font-size: 18px;
+  color: #2c3e50;
+  background: white;
+  transition: all 0.25s ease;
+  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.06);
+  position: absolute;
+  right: 0;
+  top: 0;
+  align-self: flex-end;
+  margin-top: -7px;
+  margin-right: -7px;
+}
+
+.closeBtn:hover {
+  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+  transform: translate(-4px, 4px);
+}
+
+.deleteBtn {
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 11px 28px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  border: none;
+  color: #fff;
+  background: #ff3e4e;
+  transition: all 0.25s ease;
+}
+
+.deleteBtn:hover {
+  box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.6);
+  transform: translateY(-5px);
+  background: #ff3e4e;
+}
+
+.cancelBtn {
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 11px 28px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  border: none;
+  color: #2c3e50;
+  background: #fcfcfc;
+  transition: all 0.25s ease;
+}
+
+.cancelBtn:hover {
+  box-shadow: none;
+  transform: none;
+  background: whitesmoke;
+}
