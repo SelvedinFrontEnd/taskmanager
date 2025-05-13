@@ -1,9 +1,15 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Sun, Moon } from 'lucide-react';
+import { useTheme } from '../Contexts/ThemeContext';
+import { useAuth } from '../Contexts/AuthContext';
+import { useUser } from '../Contexts/UserContext';
 
-function Sidebar({ darkMode, toggleDarkMode }) {
+function Sidebar() {
   const location = useLocation();
+  const { darkMode, toggleDarkMode } = useTheme();
+  const { user } = useAuth();
+  const { userData } = useUser();
 
   return ( 
     <div className="w-64 h-screen fixed left-0 top-0 shadow-rightdark dark:shadow-rightdark bg-[#d1f8dd] text-[#1A202C] dark:bg-[#0E0E0E] dark:text-[#F8FAFC] p-8 flex flex-col transition-colors duration-500 ease-in-out">
@@ -12,7 +18,7 @@ function Sidebar({ darkMode, toggleDarkMode }) {
         <Link to="/profile" className="hover:text-emerald-500 transition-colors duration-200">
           Profile
         </Link>
-        <p className='text-[16px] font-normal'>Selvedin</p>
+        <p className='text-[16px] font-normal'>{userData?.username || user?.displayName || "No username"}</p>
       </div>
 
       <ul className="space-y-5 text-lg font-semibold">

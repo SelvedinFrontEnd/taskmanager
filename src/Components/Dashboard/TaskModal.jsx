@@ -11,21 +11,32 @@ function TaskModal({ setIsOpen }) {
     priority:"",
     tags:[]
   })
+  const [selectedOption, setSelectedOption] = useState('');
 
   const [tasks, setTasks] = useState([])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    if (name === "startDate" && task.dueDate && task.dueDate < value) {
+      setTask((prevTask) => ({
+        ...prevTask,
+        [name]: value,
+        dueDate: "", 
+      }));
+      return; 
+    }
+  
     setTask((prevTask) => ({
       ...prevTask,
       [name]: value,
     }));
-  }
+  };
 
   const addTask = () => {
     setTasks((prevTasks) => {
       const newTasks = [...prevTasks, task];
-      console.log("New tasks inside updater:", newTasks); // ✅ This WILL log correctly
+      console.log("New tasks inside updater:", newTasks); 
       return newTasks;
     });
   
@@ -37,14 +48,17 @@ function TaskModal({ setIsOpen }) {
       priority: "",
       tags: [],
     });
-  
-    // ❌ TEMPORARILY DISABLE THIS
-    // setIsOpen(false);
   };
   
   useEffect(() => {
     console.log(tasks);
   }, [tasks]);
+
+  const handleKeyDown = (e) => {
+    if((e.key === "Enter" || e.key === ",") && task.tags.trim() !== ""){
+      console.log(task)
+    }
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -87,11 +101,31 @@ function TaskModal({ setIsOpen }) {
           />
           <input
           type="date"
-          min={today}
+          min={task.startDate || today}
           value={task.dueDate}
           onChange={handleChange}
           name="dueDate"
           />
+          <select
+          id="dropdown"
+          name="priority"
+          onChange={handleChange}
+          value={task.priority}
+          >
+            <option value="">-- Select --</option>
+            <option value="Normal">Normal</option>
+            <option value="Urgent">Urgent</option>
+            <option value="Very Urgent">Very Urgent</option>
+          </select>
+          <input 
+          value={task.tags}
+          type="text"
+          onChange={handleChange}
+          name="tags" 
+          placeholder="Type and press Enter or comma"
+          onKeyDown={handleKeyDown}
+          />
+       
         </div>
         
 

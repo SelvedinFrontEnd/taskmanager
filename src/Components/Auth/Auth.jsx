@@ -3,9 +3,11 @@ import { auth, db} from "../../Firebase/Firebase"
 import {  createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { useLoading } from '../../Contexts/LoadingContext';
 
 function Auth() {
   const [isLogin, setIsLogin] = useState(false)
+  const { isLoading, setIsLoading } = useLoading()
   const [formData, setFormData] = useState({
     username:"",
     email:"",
@@ -25,6 +27,7 @@ function Auth() {
       setError("Passwords do not match")
       return
     } try {
+      setIsLoading(true);
       const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password)
       const user = userCredential.user
 
@@ -32,7 +35,8 @@ function Auth() {
 
       await setDoc(doc(db, "users", user.uid), {
         username: formData.username,
-        email: formData.email
+        email: formData.email,
+        profilePic: "",
       })
 
       setError("");
@@ -40,6 +44,8 @@ function Auth() {
     } catch (err){
       console.log("Signup Error:", err)
       setError(err.message)
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -74,7 +80,7 @@ function Auth() {
           <div className='border-accent bg-primary-darker border-2 rounded-2xl p-8 max-w-md'>
             <form 
              onSubmit={handleSubmit}
-            className='flex flex-col gap-4'
+            className='flex flex-col gap-4 max-w-md;'
             >
               {error}
                <h1 className='text-center font-bold text-2xl text-primary-dark dark:text-primary'>{isLogin ? "Login" : "SignUp"}</h1>

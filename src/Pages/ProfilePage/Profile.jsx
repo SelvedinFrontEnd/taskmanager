@@ -1,25 +1,33 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import profilePic from "../../Images/profile.jpeg"
 import { Eye, EyeOff } from 'lucide-react'
 import LogOut from '../../Components/Profile/LogOut'
-import { auth } from '../../Firebase/Firebase'
+import { auth, updateDoc } from '../../Firebase/Firebase'
 import { useNavigate } from 'react-router-dom'
-import { signOut } from 'firebase/auth'
+import { signOut, updateProfile } from 'firebase/auth'
+import { useAuth } from '../../Contexts/AuthContext'
+import { useUser } from '../../Contexts/UserContext'
 
 
 function Profile() {
-  const [showPassword, setShowPassword] = useState(false)
   const [editProfile, setEditProfile] = useState(false)
-  const [userData, setUserData] = useState({
-    username:"Selvedin",
-    email:"sele@gmail.com",
-    password:"1234565",
-    confirmPassword:"123456",
-    image: profilePic
-  })
   const fileInputRef = useRef(null)
   const [error, setError] = useState("")
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const { userDocRef, userData, setUserData } = useUser();
+
+
+  useEffect(() => {
+    if (user) {
+      console.log(userData)
+      setUserData((prev) => ({
+        ...prev,
+        username: user.displayName || "",
+        email: user.email || "",
+      }));
+    }
+  }, [user]);
 
   const handleImageClick = () => {
     fileInputRef.current.click()
@@ -53,11 +61,37 @@ function Profile() {
     }
 };
 
+const handleEdit = async () => {
+  try {
+    // 1. Update the Firebase user profile
+    await updateProfile(user, { displayName: userData.username });
+
+    // 2. Update the Firestore document if needed
+    if (userDocRef) {
+      await updateDoc(userDocRef, {
+        username: userData.username,
+      });
+    }
+
+    // 5. Update local state (optional, to reflect changes in Profile page)
+    setUserData((prev) => ({
+      ...prev,
+      username: auth.currentUser.displayName,
+    }));
+
+    // 6. Cleanup UI
+    setEditProfile(false);
+    setError("");
+  } catch (err) {
+    setError("Failed to edit profile!");
+    console.error(err);
+  }
+};
   return (
     <div className='border-1 h-full p-8 flex flex-col'>
        <picture className='relative w-32 h-32'>
           <img
-            src={userData.image} 
+            src={profilePic} 
             alt="Profile Picture" 
             className={`absolute w-32 h-32 rounded-2xl hover:bg `}
             
@@ -84,62 +118,23 @@ function Profile() {
             value={userData.username}
             /> 
             : 
-            <p>{userData.username}
-            </p>}
+            <p>{userData?.username || user?.displayName || "No username"}</p>
+            }
           </div>
           <div className='flex gap-2'>
             <p className='font-semibold'>Email:</p>
-            {editProfile ? 
-            <input 
-            onChange={handleChange}
-            name='email'
-            type='text'
-            value={userData.email}
-            /> 
-            : 
-            <p>{userData.email}</p>}
+            <p>{user.email}</p>
           </div>
-          <div className='flex gap-2 items-center'>
-            <p className='font-semibold'>Password:</p>
-           {editProfile ? (
-            <div> 
-            <input 
-            onChange={handleChange}
-            name='password'
-            value={userData.password}
-            type={showPassword ? "text" : "password"} 
-            />
-            <button
-            onClick={() => setShowPassword(prev => !prev)}
-            className='ml-2'
-            aria-label="Toggle Password Visibility"
-            >
-              {showPassword ? <Eye className='cursor-pointer' size={20} /> : <EyeOff className='cursor-pointer' size={20}/>}
-            </button></div>
-          ) 
-           : 
-           (
-           <div>  
-            <input 
-            type={showPassword ? "text" : "password"} 
-            className='outline-none'
-            readOnly
-            value={userData.password}
-            />
-            <button
-            onClick={() => setShowPassword(prev => !prev)}
-            className='ml-2'
-            aria-label="Toggle Password Visibility"
-            >
-              {showPassword ? <Eye className='cursor-pointer' size={20} /> : <EyeOff className='cursor-pointer' size={20}/>}
-            </button></div>
-          )}
-          </div>
+          <button 
+            className="self-start cursor-pointer bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition-colors duration-200"
+          >
+            Change Password
+          </button>
         </div> 
         <div className='w-full justify-between flex mt-auto self-start'>
             {editProfile ?  
           <button 
-          onClick={() => setEditProfile(false)}
+          onClick={() => handleEdit()}
           className="cursor-pointer bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">
             Save Changes
           </button>
