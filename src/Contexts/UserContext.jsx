@@ -9,7 +9,7 @@ export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState({
     username: "",
     email: "",
-    image: "", // optional
+    image: "", 
   });
   const { user } = useAuth();
 
@@ -27,7 +27,7 @@ export const UserProvider = ({ children }) => {
       const userRef = doc(db, 'users', uid);
       setUserDocRef(userRef);
     }
-  }, [user]); // ✅ Now this will run whenever 'user' changes
+  }, [user]);
 
   return (
     <UserContext.Provider value={{ userDocRef, setUserDocRef, userData, setUserData }}>

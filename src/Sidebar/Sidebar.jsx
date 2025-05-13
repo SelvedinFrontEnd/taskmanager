@@ -49,7 +49,7 @@ function Sidebar() {
         <li className="relative flex gap-2">
           <div className={`circle ${location.pathname === "/urgent" ? "active" : ""}`}></div>
           <Link to="/urgent" className="hover:text-emerald-500 transition-colors duration-200">
-            Urgent
+            Very Urgent
           </Link>
         </li>
       </ul>

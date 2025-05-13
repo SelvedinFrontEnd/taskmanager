@@ -1,18 +1,13 @@
 import React, { useState } from 'react'
 import Task from '../../Components/Task'
+import { useTasks } from '../../Contexts/TasksContext'
 
 function Expired() {
-  const [tasks, setTasks] = useState([
-    
-  ])
+  const { tasks } = useTasks()
 
   return (
     <div className='flex flex-col gap-4'>
-      <Task tasks={tasks}/>
-      <Task tasks={tasks}/>
-      <Task tasks={tasks}/>
-      <Task tasks={tasks}/>
-      <Task tasks={tasks}/>
+     
     </div>
   )
 }

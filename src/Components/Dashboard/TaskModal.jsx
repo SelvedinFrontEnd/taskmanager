@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { RiCloseLine } from "react-icons/ri";
+import { updateDoc, arrayUnion } from "firebase/firestore";
+import { useUser } from "../../Contexts/UserContext"
 
 function TaskModal({ setIsOpen }) {
   const today = new Date().toISOString().split("T")[0]
@@ -9,10 +11,11 @@ function TaskModal({ setIsOpen }) {
     startDate:"",
     dueDate:"",
     priority:"",
-    tags:[]
+    tags:[],
+    completed: false,
   })
-  const [selectedOption, setSelectedOption] = useState('');
-
+  const [tagInput, setTagInput] = useState("")
+  const { userDocRef } = useUser(); // 🔥 already available
   const [tasks, setTasks] = useState([])
 
   const handleChange = (e) => {
@@ -33,13 +36,17 @@ function TaskModal({ setIsOpen }) {
     }));
   };
 
-  const addTask = () => {
-    setTasks((prevTasks) => {
-      const newTasks = [...prevTasks, task];
-      console.log("New tasks inside updater:", newTasks); 
-      return newTasks;
+ const addTask = async () => {
+  if (!userDocRef) return;
+
+  try {
+    await updateDoc(userDocRef, {
+      tasks: arrayUnion(task)
     });
-  
+    console.log("Task added!");
+  } catch (err) {
+    console.error("Error adding task:", err);
+  } finally {
     setTask({
       title: "",
       description: "",
@@ -48,15 +55,32 @@ function TaskModal({ setIsOpen }) {
       priority: "",
       tags: [],
     });
-  };
+
+    setTagInput(""); // clear tag input too
+  }
+};
   
   useEffect(() => {
     console.log(tasks);
   }, [tasks]);
 
   const handleKeyDown = (e) => {
-    if((e.key === "Enter" || e.key === ",") && task.tags.trim() !== ""){
-      console.log(task)
+    if((e.key === "Enter" || e.key === ",") && tagInput.trim() !== ""){
+      e.preventDefault();
+
+      const newTag = tagInput.trim()
+
+      
+      setTask((prevTask) => {
+  if (prevTask.tags.includes(newTag)) {
+    return prevTask; 
+  } return {
+    ...prevTask,
+    tags: [...prevTask.tags, newTag],
+  };
+});
+
+    setTagInput(""); 
     }
   }
 
@@ -77,56 +101,84 @@ function TaskModal({ setIsOpen }) {
           <RiCloseLine size={24} />
         </button>
         
-        <div className="flex flex-col p-4">
-          <input 
-          type="text"
-          placeholder="Title"
-          value={task.title}
-          onChange={handleChange}
-          name="title"
-          />
-          <textarea
-          type="text"
-          placeholder="Description"
-          value={task.description}
-          onChange={handleChange}
-          name="description"
-          />
-          <input
-          type="date"
-          min={today}
-          value={task.startDate}
-          onChange={handleChange}
-          name="startDate"
-          />
-          <input
-          type="date"
-          min={task.startDate || today}
-          value={task.dueDate}
-          onChange={handleChange}
-          name="dueDate"
-          />
-          <select
-          id="dropdown"
-          name="priority"
-          onChange={handleChange}
-          value={task.priority}
-          >
-            <option value="">-- Select --</option>
-            <option value="Normal">Normal</option>
-            <option value="Urgent">Urgent</option>
-            <option value="Very Urgent">Very Urgent</option>
-          </select>
-          <input 
-          value={task.tags}
-          type="text"
-          onChange={handleChange}
-          name="tags" 
-          placeholder="Type and press Enter or comma"
-          onKeyDown={handleKeyDown}
-          />
-       
-        </div>
+        <div className="flex flex-col gap-4 p-4">
+        <div className="text-center font-bold text-2xl">Create your new task</div>
+  {/* Title */}
+  <input 
+    type="text"
+    placeholder="Title"
+    value={task.title}
+    onChange={handleChange}
+    name="title"
+    className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+
+  {/* Description */}
+  <textarea
+    placeholder="Description"
+    value={task.description}
+    onChange={handleChange}
+    name="description"
+    rows={4}
+    className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+  />
+
+  {/* Start Date */}
+  <input
+    type="date"
+    min={today}
+    value={task.startDate}
+    onChange={handleChange}
+    name="startDate"
+    className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+
+  {/* Due Date */}
+  <input
+    type="date"
+    min={task.startDate || today}
+    value={task.dueDate}
+    onChange={handleChange}
+    name="dueDate"
+    className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+
+  {/* Priority Dropdown */}
+  <select
+    id="dropdown"
+    name="priority"
+    onChange={handleChange}
+    value={task.priority}
+    className="border cursor-pointer border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+  >
+    <option value="">-- Select Priority --</option>
+    <option value="Normal">Normal</option>
+    <option value="Urgent">Urgent</option>
+    <option value="Very Urgent">Very Urgent</option>
+  </select>
+
+  {/* Tags */}
+  <div className="flex flex-wrap gap-2">
+    {task.tags.map((tag, index) => (
+      <span
+        key={index}
+        className="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full"
+      >
+        {tag}
+      </span>
+    ))}
+  </div>
+
+  {/* Tag Input */}
+  <input 
+    value={tagInput}
+    type="text"
+    onChange={(e) => setTagInput(e.target.value)}
+    placeholder="Type a tag and press Enter or comma"
+    onKeyDown={handleKeyDown}
+    className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+</div>
         
 
         <div className="flex justify-center space-x-4">
