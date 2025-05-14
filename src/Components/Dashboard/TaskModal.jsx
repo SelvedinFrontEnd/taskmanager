@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { RiCloseLine } from "react-icons/ri";
 import { updateDoc, arrayUnion } from "firebase/firestore";
 import { useUser } from "../../Contexts/UserContext"
+import { useTasks } from "../../Contexts/TasksContext";
 
 function TaskModal({ setIsOpen }) {
   const today = new Date().toISOString().split("T")[0]
@@ -16,7 +17,7 @@ function TaskModal({ setIsOpen }) {
   })
   const [tagInput, setTagInput] = useState("")
   const { userDocRef } = useUser(); // 🔥 already available
-  const [tasks, setTasks] = useState([])
+  const { tasks , setTasks } = useTasks()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,7 +44,8 @@ function TaskModal({ setIsOpen }) {
     await updateDoc(userDocRef, {
       tasks: arrayUnion(task)
     });
-    console.log("Task added!");
+
+    setTasks((prevTasks) => [...prevTasks, task]);
   } catch (err) {
     console.error("Error adding task:", err);
   } finally {
@@ -56,13 +58,9 @@ function TaskModal({ setIsOpen }) {
       tags: [],
     });
 
-    setTagInput(""); // clear tag input too
+    setTagInput(""); 
   }
 };
-  
-  useEffect(() => {
-    console.log(tasks);
-  }, [tasks]);
 
   const handleKeyDown = (e) => {
     if((e.key === "Enter" || e.key === ",") && tagInput.trim() !== ""){

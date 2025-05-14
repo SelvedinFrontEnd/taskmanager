@@ -1,10 +1,17 @@
 import React, { useState } from 'react'
 import Task from '../../Components/Task'
 import { useTasks } from '../../Contexts/TasksContext'
+import Pagination from '../../Components/Pagination/Pagination';
 
 
 function Tasks() {
   const { tasks } = useTasks()
+  const itemsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1)
+
+  const indexOfLast = currentPage * itemsPerPage;
+ const indexOfFirst = indexOfLast - itemsPerPage;
+const currentItems = tasks.slice(indexOfFirst, indexOfLast);
 
   return (
     <>
@@ -15,13 +22,16 @@ function Tasks() {
         </div>
       </div>
       <div className='flex flex-col gap-4'>
-        {tasks.map((task, index) => (
+        {currentItems.map((task, index) => (
           <Task key={index} task={task} />
         ))}
       </div>
-      <div>
-        Pagination 10max tasks per page
-      </div>
+        <Pagination
+        currentPage={currentPage}
+        totalItems={tasks.length}
+        itemsPerPage={itemsPerPage}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
     </>
     
   )
