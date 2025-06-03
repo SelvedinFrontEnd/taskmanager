@@ -3,8 +3,8 @@ import React from 'react';
 function DashboardCard({ title, value, icon }) {
   return (
     <div
-      className={`bg-primary dark:bg-primary-dark cursor-pointer h-70 text-primary-dark dark:text-primary shadow-md rounded-2xl p-6 flex flex-col gap-6 transition-all duration-300 transform hover:scale-105 hover:shadow-xl border-l-4 border-accent relative`}
-    >
+  className="text-sm bg-primary dark:bg-primary-dark cursor-pointer text-primary-dark dark:text-primary shadow-md rounded-2xl p-4 sm:p-6 flex flex-col gap-4 sm:gap-6 transition-all duration-300 transform hover:scale-105 hover:shadow-xl border-l-4 border-accent relative"
+>
       <div className='flex gap-4 items-start'>
         <div className="text-accent mt-1">{icon}</div> 
         <div className="flex flex-col">

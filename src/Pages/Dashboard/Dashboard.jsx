@@ -12,13 +12,14 @@ function Dashboard() {
 
   return (
     <>
-      <div className='bg-primary dark:bg-primary-dark rounded-2xl mb-4 flex flex-row items-center justify-items-center'>
+      {/* <div className='bg-primary dark:bg-primary-dark rounded-2xl mb-4 flex flex-row items-center justify-items-center'>
         <SearchBar />
         <AddTasks />
         <Notifications />
-      </div>
+      </div> */}
          
-      <div className='mt-auto grid grid-cols-2 grid-rows-2 gap-4'>
+      {/* <div className='mt-auto grid grid-cols-2 grid-rows-2 gap-4'> */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 px-4 sm:px-0">
         <DashboardCard
           title="All Tasks"
           value="30"

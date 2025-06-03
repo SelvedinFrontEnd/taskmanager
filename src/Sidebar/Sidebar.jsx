@@ -12,7 +12,7 @@ function Sidebar() {
   const { userData } = useUser();
 
   return ( 
-    <div className="w-64 h-screen fixed left-0 top-0 shadow-rightdark dark:shadow-rightdark bg-[#d1f8dd] text-[#1A202C] dark:bg-[#0E0E0E] dark:text-[#F8FAFC] p-8 flex flex-col transition-colors duration-500 ease-in-out">
+    <div className="text-sm w-64 h-screen fixed left-0 top-0 shadow-rightdark dark:shadow-rightdark bg-[#d1f8dd] text-[#1A202C] dark:bg-[#0E0E0E] dark:text-[#F8FAFC] p-8 flex flex-col transition-colors duration-500 ease-in-out">
       
       <div className="mb-10 text-2xl font-extrabold tracking-tight">
         <Link to="/profile" className="hover:text-emerald-500 transition-colors duration-200">
