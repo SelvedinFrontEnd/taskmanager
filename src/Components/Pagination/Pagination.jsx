@@ -32,10 +32,6 @@ function Pagination({ currentPage, totalItems, itemsPerPage, onPageChange }) {
   };
 
   const pages = getPages();
-  console.log('Current page:', currentPage);
-console.log('Total tasks:', totalItems);
-console.log('Items per page:', itemsPerPage);
-console.log('Total pages:', totalPages);
 
   return (
     <div className="flex justify-center items-center gap-2 mt-6 flex-wrap">

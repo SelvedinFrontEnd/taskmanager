@@ -6,7 +6,6 @@ import AddTasks from '../../Components/Dashboard/AddTasks';
 import Notifications from '../../Components/Dashboard/Notifications';
 import Upcoming from '../../Components/Dashboard/Upcoming';
 import ActivityFeed from '../../Components/Dashboard/ActivityFeed';
-import Calendar from '../../Components/Dashboard/Calendar';
 
 function Dashboard() {
   
@@ -18,13 +17,7 @@ function Dashboard() {
         <AddTasks />
         <Notifications />
       </div>
-      
-      <div className='flex gap-4 m-auto mb-12'>
-        <Upcoming />
-        <ActivityFeed />
-      </div>
-      
-      
+         
       <div className='mt-auto grid grid-cols-2 grid-rows-2 gap-4'>
         <DashboardCard
           title="All Tasks"
@@ -47,7 +40,6 @@ function Dashboard() {
           icon={<CheckCircle size={28} />}
         />
       </div>
-      <Calendar />
     </>
   );
 }

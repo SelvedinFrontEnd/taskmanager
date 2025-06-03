@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Task({ task }) {
+function Task({ task, handleTaskModal }) {
   const getPriorityColor = (priority) => {
     switch (priority) {
       case 'Very Urgent':
@@ -14,7 +14,7 @@ function Task({ task }) {
   };
 
   return (
-    <div className="p-4 rounded-xl cursor-pointer flex flex-col gap-2 bg-primary dark:bg-primary-dark text-primary-dark dark:text-primary shadow-md hover:shadow-lg transition">
+    <div onClick={handleTaskModal} className="p-4 rounded-xl cursor-pointer flex flex-col gap-2 bg-primary dark:bg-primary-dark text-primary-dark dark:text-primary shadow-md hover:shadow-lg transition">
       <div className="flex justify-between items-center">
         <h1 className="font-bold text-lg">{task.title}</h1>
         <div className={`w-3 h-3 rounded-full ${getPriorityColor(task.priority)}`}></div>
@@ -29,7 +29,6 @@ function Task({ task }) {
         <span className={`px-2 py-1 rounded-full text-white ${getPriorityColor(task.priority)}`}>
           {task.priority}
         </span>
-        <span className='mr-auto'><input type="checkbox" name="" id="" /></span>
         {task.tags?.slice(0, 5).map((tag, index) => (
           <span
             key={index}

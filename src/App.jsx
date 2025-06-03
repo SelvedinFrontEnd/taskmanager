@@ -1,7 +1,4 @@
-import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './Firebase/Firebase';
 import Sidebar from './Sidebar/Sidebar';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import Tasks from './Pages/Tasks/Tasks';
@@ -14,6 +11,7 @@ import AuthPage from './Pages/AuthPage/AuthPage';
 import { useLoading } from './Contexts/LoadingContext';
 import Loading from './Loading/Loading';
 import { useAuth } from './Contexts/AuthContext';
+import CalendarPage from './Pages/CalendarPage/CalendarPage';
 
 function App() {
   const { isLoading, setIsLoading } = useLoading()
@@ -39,6 +37,7 @@ function App() {
               <Route path='/profile' element={<Profile />} />
               <Route path='/upcoming' element={<Upcoming />} />
               <Route path='/urgent' element={<Urgent />} />
+              <Route path='/calendar' element={<CalendarPage />} />
               <Route path="/auth" element={<Navigate to="/" />} />
             </Routes>
           </main>
