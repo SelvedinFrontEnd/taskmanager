@@ -26,10 +26,10 @@ function App() {
       <div className="bg-[#e6fced] text-[#1A202C] transition-colors duration-500 ease-in-out dark:bg-[#1A1A1A] dark:text-[#F8FAFC]">
         {isLoggedIn ? (
           <>
-          {/*<Sidebar /> */ }
+          <Sidebar /> 
           
-         {/*  <main className="flex-1 ml-64 p-6"> */ }
-         <main className="">
+           <main className="flex-1 ml-64 p-6"> 
+         
             <Routes>
               <Route path='/' element={<Dashboard />} />
               <Route path='/tasks' element={<Tasks />} />
