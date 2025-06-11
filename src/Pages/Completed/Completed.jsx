@@ -2,6 +2,10 @@ import { useState } from 'react'
 import Task from '../../Components/Task'
 import { useTasks } from '../../Contexts/TasksContext'
 import { RiCloseLine } from 'react-icons/ri';
+import SearchBar from '../../Components/Dashboard/SearchBar';
+import AddTasks from '../../Components/Dashboard/AddTasks';
+import Notifications from '../../Components/Dashboard/Notifications';
+import HamburgerMenu from '../../Components/Dashboard/HamburgerMenu';
 
 function Completed() {
   const { tasks } = useTasks()
@@ -40,6 +44,15 @@ function Completed() {
 
   return (
     <>
+    <div className='bg-primary dark:bg-primary-dark rounded-2xl p-2 mb-4 gap-2 flex flex-row items-center justify-items-center'>
+        <SearchBar />
+        <AddTasks />
+        <div className='m-auto'>
+          Completed
+        </div>
+        <Notifications />
+        <HamburgerMenu />
+      </div> 
       <div className='flex flex-col gap-4'>
         {completedTasks.map((task, index) => (
           <Task key={index} task={task} handleTaskModal={() => handleTaskModal(task)} />

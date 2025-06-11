@@ -40,6 +40,18 @@ function TaskModal({ setIsOpen }) {
  const addTask = async () => {
   if (!userDocRef) return;
 
+  if (
+  task.title.trim() === "" ||
+  task.description.trim() === "" ||
+  task.startDate === "" ||
+  task.dueDate === "" ||
+  task.priority === "" ||
+  task.tags.length === 0
+) {
+  alert("Please fill in all fields before adding the task.");
+  return;
+}
+
   try {
     await updateDoc(userDocRef, {
       tasks: arrayUnion(task)

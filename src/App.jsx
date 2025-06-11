@@ -23,12 +23,12 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="bg-[#e6fced] text-[#1A202C] transition-colors duration-500 ease-in-out dark:bg-[#1A1A1A] dark:text-[#F8FAFC]">
+      <div className="bg-white text-[#1A202C] transition-colors duration-500 ease-in-out dark:bg-[#1A1A1A] dark:text-[#F8FAFC]">
         {isLoggedIn ? (
           <>
           <Sidebar /> 
           
-           <main className="flex-1 ml-64 p-6"> 
+           <main className="p-2 md:flex-1 md:ml-64 md:p-6"> 
          
             <Routes>
               <Route path='/' element={<Dashboard />} />

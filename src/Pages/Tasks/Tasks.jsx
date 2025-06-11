@@ -3,6 +3,10 @@ import Task from '../../Components/Task'
 import { useTasks } from '../../Contexts/TasksContext'
 import Pagination from '../../Components/Pagination/Pagination';
 import { RiCloseLine } from 'react-icons/ri';
+import SearchBar from '../../Components/Dashboard/SearchBar';
+import AddTasks from '../../Components/Dashboard/AddTasks';
+import Notifications from '../../Components/Dashboard/Notifications';
+import HamburgerMenu from '../../Components/Dashboard/HamburgerMenu';
 
 
 function Tasks() {
@@ -49,12 +53,15 @@ function Tasks() {
 
   return (
     <>
-      <div className='flex'>
-        <h1 className="text-2xl font-bold mb-4">All Tasks</h1>
-        <div className='ml-auto mr-8'>
-          SEARCH BAR HERE
+    <div className='bg-primary dark:bg-primary-dark rounded-2xl p-2 mb-4 gap-2 flex flex-row items-center justify-items-center'>
+        <SearchBar />
+        <AddTasks />
+        <div className='m-auto'>
+          All Tasks
         </div>
-      </div>
+        <Notifications />
+        <HamburgerMenu />
+      </div> 
       <div className='flex flex-col gap-4'>
         {currentItems.map((task, index) => (
           <Task key={index} task={task} handleTaskModal={() => handleTaskModal(task)} />

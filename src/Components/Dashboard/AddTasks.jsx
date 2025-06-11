@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PlusCircle } from 'lucide-react'; 
+import { Plus } from 'lucide-react'; // simpler than PlusCircle
 import TaskModal from './TaskModal';
 
 function AddTasks() {
@@ -7,15 +7,14 @@ function AddTasks() {
 
   return (
     <>
-      <div className="flex justify-end p-6">
-        <button 
-          className="h-13 flex items-center space-x-2 cursor-pointer bg-emerald-500 text-white border-2 rounded-full px-6 py-3 hover:bg-emerald-600 dark:bg-emerald-500 dark:text-white dark:border-emerald-500 dark:hover:bg-emerald-600 transition-all duration-300"
-          onClick={() => setIsOpen(true)}
-        >
-          <PlusCircle size={24} />
-          <span className="text-lg font-semibold">Add Task</span>
-        </button>
-      </div>
+      <button
+        className="cursor-pointer flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-[#0E0E0E] border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-[#1a1a1a] transition-colors duration-200"
+        onClick={() => setIsOpen(true)}
+        title="Add Task"
+      >
+        <Plus className="w-5 h-5 text-black dark:text-white" />
+      </button>
+
       {isOpen && <TaskModal setIsOpen={setIsOpen} />}
     </>
   );

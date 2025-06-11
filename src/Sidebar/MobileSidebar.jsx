@@ -1,26 +1,34 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Sun, Moon } from 'lucide-react';
-import { useTheme } from '../Contexts/ThemeContext';
 import { useAuth } from '../Contexts/AuthContext';
 import { useUser } from '../Contexts/UserContext';
+import { Link, useLocation } from 'react-router-dom';
+import { useTheme } from '../Contexts/ThemeContext';
+import { Moon, Sun } from 'lucide-react';
 
-function Sidebar() {
+function MobileSidebar({ setIsOpen }) {
   const location = useLocation();
   const { darkMode, toggleDarkMode } = useTheme();
   const { user } = useAuth();
   const { userData } = useUser();
 
-  return ( 
-    <div className="hidden text-sm w-64 h-screen fixed left-0 top-0 shadow-rightdark dark:shadow-rightdark bg-[#d1f8dd] text-[#1A202C] dark:bg-[#0E0E0E] dark:text-[#F8FAFC] p-8 md:flex flex-col transition-colors duration-500 ease-in-out">
-      
+
+  return (
+    <div className="md:hidden fixed top-0 left-0 w-full h-full z-50 bg-[#d1f8dd] dark:bg-[#0E0E0E] overflow-y-auto p-6">
+      <div className="fixed top-5 right-10">
+        <button
+          onClick={() => setIsOpen(false)}
+          className="text-black dark:text-white text-xl font-bold"
+        >
+          ✕
+        </button>
+      </div>
       <div className="mb-10 text-2xl font-extrabold tracking-tight">
         <Link to="/profile" className="hover:text-emerald-500 transition-colors duration-200">
           Profile
         </Link>
         <p className='text-[16px] font-normal'>{userData?.username || user?.displayName || "No username"}</p>
       </div>
-
+      
       <ul className="space-y-5 text-lg font-semibold">
         <li className="relative flex gap-2">
           <div className={`circle ${location.pathname === "/" ? "active" : ""}`}></div>
@@ -72,7 +80,8 @@ function Sidebar() {
         )}
       </div>
     </div>
+
   );
 }
 
-export default Sidebar;
+export default MobileSidebar;

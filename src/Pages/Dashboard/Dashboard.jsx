@@ -6,20 +6,24 @@ import AddTasks from '../../Components/Dashboard/AddTasks';
 import Notifications from '../../Components/Dashboard/Notifications';
 import Upcoming from '../../Components/Dashboard/Upcoming';
 import ActivityFeed from '../../Components/Dashboard/ActivityFeed';
+import HamburgerMenu from '../../Components/Dashboard/HamburgerMenu';
 
 function Dashboard() {
   
 
   return (
     <>
-      {/* <div className='bg-primary dark:bg-primary-dark rounded-2xl mb-4 flex flex-row items-center justify-items-center'>
+       <div className='bg-primary dark:bg-primary-dark rounded-2xl p-2 mb-4 gap-2 flex flex-row items-center justify-items-center'>
         <SearchBar />
         <AddTasks />
+        <div className='m-auto'>
+          Dashboard
+        </div>
         <Notifications />
-      </div> */}
+        <HamburgerMenu />
+      </div> 
          
-      {/* <div className='mt-auto grid grid-cols-2 grid-rows-2 gap-4'> */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 px-4 sm:px-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:px-0">
         <DashboardCard
           title="All Tasks"
           value="30"
